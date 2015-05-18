@@ -1,0 +1,7 @@
+%section.sign_in.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      =bootstrap_form_tag url: '/checking_credentials' do |f|
+        =f.text_field :username
+        =f.password_field :password
+        =f.submit "Log In", class: 'btn btn-default'
