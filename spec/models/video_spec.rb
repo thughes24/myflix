@@ -38,4 +38,5 @@ describe Video do
       expect video.is_in_queue     
     end
     it "returns false if video is not in the current users queue"
+  end
 end
