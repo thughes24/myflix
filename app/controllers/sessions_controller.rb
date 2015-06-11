@@ -13,11 +13,12 @@ class SessionsController < ApplicationController
   end
 
   def checking_credentials
-    @user = User.find_by(params[:id])
+    @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
       redirect_to home_path
     else
+      flash[:notice] = "Invalid Username/Password"
       render :sign_in
     end
   end

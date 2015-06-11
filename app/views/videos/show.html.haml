@@ -1,0 +1,49 @@
+%article.video
+  .container
+    .row
+      .video_large_cover.col-sm-7.col-sm-offset-1
+        %img(src="#{@video.large_cover_url}")
+      .video_info.col-sm-3
+        %header
+          %h3 #{@video.title}
+          %span #{@video.average_rating}
+        %p #{@video.description}
+        .actions
+          %a.btn.btn-primary(href="") Watch Now
+          =link_to "+ My Queue", queue_items_path(@video), method: 'post', class: 'btn btn-primary' if !current_user.has_queued_video?(@video)
+
+%section.reviews.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      =bootstrap_form_for [@video, @review] do |f|
+        %fieldset
+          .form-group
+            %label Rate this video
+            .row
+              .col-sm-3
+                =f.form_group :rating do
+                  =f.radio_button :rating, 1, label: "1 Star"  
+                  =f.radio_button :rating, 2, label: "2 Stars" 
+                  =f.radio_button :rating, 3, label: "3 Stars" 
+                  =f.radio_button :rating, 4, label: "4 Stars" 
+                  =f.radio_button :rating, 5, label: "5 Stars"
+
+          .form-group
+            =f.label :writeup, "Write Review"
+            .row
+              .col-sm-8
+                =f.text_area(:writeup, hide_label: true)
+        %fieldset.form-group.actions.clearfix
+          =f.submit
+          %a(href="") Cancel
+      %header
+        %h3 User Reviews (#{@video.reviews.size})
+      %ul
+        - @video.reviews.each do |review|
+          %article.review
+            %li.row
+              .col-sm-2
+                %span Rating: #{review.rating}/ 5
+                %p=link_to review.user.username, user_path(review.user)
+              .col-sm-8
+                %p #{review.writeup}

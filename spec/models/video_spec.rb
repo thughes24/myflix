@@ -22,11 +22,20 @@ describe Video do
   it "should return an array of objects if multiple videos are found" do
     simpsons = Video.create(title: "simpsons", description: "beer")
     south_park = Video.create(title: "south park", description: "silly farts")
-    s_search = Video.search_by_title("s")
+    s_search = Video.search_by_title("so")
     expect(s_search).to eq([south_park, simpsons])
   end
 
   it "should return empty array if no search term is entered" do
     expect(Video.search_by_title("")).to eq([])
   end
+
+  describe "#is_in_queue" do
+    it "returns true if video is already in current users queue" do
+      user = Fabricate(:user)
+      video = Fabricate(:video)
+      queue_item = Fabricate(:queue_item, video: video, user: user)
+      expect video.is_in_queue     
+    end
+    it "returns false if video is not in the current users queue"
 end
