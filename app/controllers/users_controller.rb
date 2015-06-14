@@ -29,6 +29,43 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
+  def password_reset
+    if params[:email]
+      @user = User.find_by_email(params[:email])
+      if @user
+        @user.generate_reset_token
+        if @user.save
+          redirect_to confirm_password_reset_path if AppMailer.password_reset_token(@user)
+        end
+      else
+        flash[:error] = "No user with that email exists"
+        render :password_reset
+      end
+    end
+  end
+
+  def confirm_password_reset
+  end
+
+  def new_password
+    @user = User.find_by_reset_token(params[:reset_token])
+    redirect_to invalid_token_path if params[:reset_token].blank? || !@user
+  end
+
+  def invalid_token
+  end
+
+  def create_password
+    @user = User.find_by_reset_token(params[:reset_token])
+    @user.password = params[:password]
+    if @user.save
+      @user.reset_token = nil
+      redirect_to sign_in_path
+    else
+      redirect_to root_path
+    end
+  end
+
   private
   def user_params
     params.require(:user).permit(:email,:username,:password)

@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
   def has_queued_video?(vid)
     queue_items.map(&:video).include?(vid)
   end
+
+  def generate_reset_token
+    self.reset_token = SecureRandom.urlsafe_base64
+  end
 end
