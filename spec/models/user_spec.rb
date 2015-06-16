@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe User do
   it {should have_many(:follows)}
-  it {should have_many(:followers).through(:follows)}
+  it {should have_many(:following).through(:follows)}
+
+  it {should have_many(:invites)}
+  it {should have_many(:inviters).through(:invites)}
+  
   describe "#has_queued_video?" do
     it "returns true if video is already in current users queue" do
       user = Fabricate(:user)

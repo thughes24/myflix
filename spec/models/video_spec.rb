@@ -29,14 +29,4 @@ describe Video do
   it "should return empty array if no search term is entered" do
     expect(Video.search_by_title("")).to eq([])
   end
-
-  describe "#is_in_queue" do
-    it "returns true if video is already in current users queue" do
-      user = Fabricate(:user)
-      video = Fabricate(:video)
-      queue_item = Fabricate(:queue_item, video: video, user: user)
-      expect video.is_in_queue     
-    end
-    it "returns false if video is not in the current users queue"
-  end
 end

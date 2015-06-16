@@ -10,6 +10,13 @@ feature "Reset password integration" do
     expect(page).to have_selector("input[value='#{user.email}']")
     click_button("Send Email")
     open_email(user.email)
-    current_email(user.email)
+    current_email.click_link("Reset Password")
+    fill_in "password", with: "hellohi"
+    click_button("Reset Password")
+    fill_in 'Username', with: user.username
+    fill_in 'Password', with: 'hellohi'
+    click_button('Log In')
+    expect(page).to have_content(user.username)
+    expect(User.first.reset_token).to be_blank
   end
 end

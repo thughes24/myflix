@@ -1,0 +1,7 @@
+!!!5
+%body
+  %h1
+    Sign up to MyFlix!
+  %p
+    click the link bellow to sign up to MyFlix!
+  =link_to "Join MyFlix", new_user_url(email: @invite.invited_email, invite_token: @invite.invite_token)

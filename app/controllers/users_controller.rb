@@ -18,6 +18,10 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      if params[:invite_token]
+        @user1 = Invite.find_by_invite_token(params[:invite_token]).inviter
+        User.create_mutual_follow(@user,@user1)
+      end
       AppMailer.welcome_email(@user).deliver
       redirect_to sign_in_path
     else
@@ -35,7 +39,7 @@ class UsersController < ApplicationController
       if @user
         @user.generate_reset_token
         if @user.save
-          redirect_to confirm_password_reset_path if AppMailer.password_reset_token(@user)
+          redirect_to confirm_password_reset_path if AppMailer.password_reset_token(@user).deliver
         end
       else
         flash[:error] = "No user with that email exists"
@@ -56,10 +60,10 @@ class UsersController < ApplicationController
   end
 
   def create_password
-    @user = User.find_by_reset_token(params[:reset_token])
+    @user = User.find_by_reset_token(params[:token])
     @user.password = params[:password]
     if @user.save
-      @user.reset_token = nil
+      @user.update(reset_token: nil)
       redirect_to sign_in_path
     else
       redirect_to root_path
