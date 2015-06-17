@@ -22,7 +22,7 @@ class UsersController < ApplicationController
         @user1 = Invite.find_by_invite_token(params[:invite_token]).inviter
         User.create_mutual_follow(@user,@user1)
       end
-      AppMailer.welcome_email(@user).deliver
+      AppMailer.delay.welcome_email(@user)
       redirect_to sign_in_path
     else
       render :new
