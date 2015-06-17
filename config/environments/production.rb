@@ -17,7 +17,7 @@ Myflix::Application.configure do
   config.i18n.fallbacks = true
 
   config.active_support.deprecation = :notify
-  config.action_mailer.default_url_options = { :host => 'https://mailertest.herokuapp.com' }
+  config.action_mailer.default_url_options = { :host => 'mailertest.herokuapp.com' }
 
   config.action_mailer.delivery_method = :smtp
 ActionMailer::Base.smtp_settings = {
@@ -25,7 +25,7 @@ ActionMailer::Base.smtp_settings = {
   :address        => ENV['MAILGUN_SMTP_SERVER'],
   :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
   :password       => ENV['MAILGUN_SMTP_PASSWORD'],
-  :domain         => 'mailertest.heroku.com',
+  :domain         => 'mailertest.herokuapp.com',
   :authentication => :plain,
 }
 end
