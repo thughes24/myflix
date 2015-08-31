@@ -8,6 +8,7 @@ south_park = Video.create(title: "South Park", description: "South Park is the b
 
 demo_user = User.create(username: "demo", password: "password", email: "demo@example.com")
 other_user = User.create(username: 'other', password: 'password', email: 'email@example.com')
+admin_user = User.create(username: 'admin', password: 'password', email: 'admin@example.com', admin: true)
 
 review1 = Review.create(rating: 4, writeup: "this show is good, i give it 4", user: demo_user, video: monk)
 review2 = Review.create(rating: 2, writeup: "this show is bad, i give it 2", user: demo_user, video: futurama)
@@ -24,4 +25,6 @@ queue_item4 = QueueItem.create(user: other_user, video: south_park, position: 2)
 
 follow1 = Follow.create(user: demo_user, following: other_user)
 follow2 = Follow.create(user: other_user, following: demo_user)
+
+
 

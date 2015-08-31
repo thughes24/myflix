@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature "User can invite friends" do
-  scenario "User invites friends" do
+  scenario "User invites friends", { js: true, vcr: true } do
     user = Fabricate(:user)
     visit '/sign-in'
     fill_in "Username", with: user.username
@@ -19,17 +19,21 @@ feature "User can invite friends" do
 
     open_email("john@example.com")
     current_email.click_link("Join MyFlix")
-    expect(page).to have_button("Sign Up")
+    expect(page).to have_button("Register Account")
     expect(page).to have_selector("input[value='john@example.com']")
 
     fill_in "Username", with: "John"
     fill_in "Password", with: "password"
-    click_button("Sign Up")
+    fill_in "credit-card", with: "4242424242424242"
+    fill_in "security-code", with: "123"
+    select "7 - July", from: "date_month"
+    select "2018", from: "date_year"
+    click_button("Register Account")
+    sleep(2)
     visit '/sign-in'
     fill_in "Username", with: 'John'
     fill_in "Password", with: 'password'
     click_button("Log In")
-    
     visit '/people'
     expect(page).to have_content(user.username)
 

@@ -25,4 +25,8 @@ class User < ActiveRecord::Base
     Follow.create(user_id: user.id, follower_id: user1.id)
     Follow.create(user_id: user1.id, follower_id: user.id)
   end
+
+  def deactivate!
+    update_column(:active, false)
+  end
 end

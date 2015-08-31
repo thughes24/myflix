@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: 05cd850e7517d1f4acdcb25002efd339bc9ed3b0
+  specs:
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
+
+GIT
   remote: git://github.com/dockyard/capybara-email.git
   revision: 76a78f16475faf429315d59deb756b42cd6337c3
   specs:
@@ -9,6 +19,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    CFPropertyList (2.3.1)
     actionmailer (4.1.1)
       actionpack (= 4.1.1)
       actionview (= 4.1.1)
@@ -60,6 +71,8 @@ GEM
       xpath (~> 2.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    childprocess (0.5.6)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -69,18 +82,141 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     connection_pool (2.2.0)
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     daemons (1.2.2)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
+    domain_name (0.5.24)
+      unf (>= 0.0.5, < 1.0.0)
+    draper (2.1.0)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      request_store (~> 1.0)
+    elasticsearch (1.0.12)
+      elasticsearch-api (= 1.0.12)
+      elasticsearch-transport (= 1.0.12)
+    elasticsearch-api (1.0.12)
+      multi_json
+    elasticsearch-model (0.1.7)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.7)
+    elasticsearch-transport (1.0.12)
+      faraday
+      multi_json
     erubis (2.7.0)
     eventmachine (1.0.7)
+    excon (0.45.3)
     execjs (2.5.2)
     fabrication (2.13.2)
     faker (1.4.3)
       i18n (~> 0.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
+    ffi (1.9.10)
     figaro (1.1.1)
       thor (~> 0.14)
+    fission (0.5.0)
+      CFPropertyList (~> 2.2)
+    fog (1.31.0)
+      fog-atmos
+      fog-aws (~> 0.0)
+      fog-brightbox (~> 0.4)
+      fog-core (~> 1.30)
+      fog-ecloud
+      fog-google (>= 0.0.2)
+      fog-json
+      fog-local
+      fog-powerdns (>= 0.1.1)
+      fog-profitbricks
+      fog-radosgw (>= 0.0.2)
+      fog-riakcs
+      fog-sakuracloud (>= 0.0.4)
+      fog-serverlove
+      fog-softlayer
+      fog-storm_on_demand
+      fog-terremark
+      fog-vmfusion
+      fog-voxel
+      fog-xml (~> 0.1.1)
+      ipaddress (~> 0.5)
+      nokogiri (~> 1.5, >= 1.5.11)
+    fog-atmos (0.1.0)
+      fog-core
+      fog-xml
+    fog-aws (0.5.0)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-brightbox (0.7.1)
+      fog-core (~> 1.22)
+      fog-json
+      inflecto (~> 0.0.2)
+    fog-core (1.31.1)
+      builder
+      excon (~> 0.45)
+      formatador (~> 0.2)
+      mime-types
+      net-scp (~> 1.1)
+      net-ssh (>= 2.1.3)
+    fog-ecloud (0.1.3)
+      fog-core
+      fog-xml
+    fog-google (0.0.5)
+      fog-core
+      fog-json
+      fog-xml
+    fog-json (1.0.2)
+      fog-core (~> 1.0)
+      multi_json (~> 1.10)
+    fog-local (0.2.1)
+      fog-core (~> 1.27)
+    fog-powerdns (0.1.1)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+    fog-profitbricks (0.0.3)
+      fog-core
+      fog-xml
+      nokogiri
+    fog-radosgw (0.0.4)
+      fog-core (>= 1.21.0)
+      fog-json
+      fog-xml (>= 0.0.1)
+    fog-riakcs (0.1.0)
+      fog-core
+      fog-json
+      fog-xml
+    fog-sakuracloud (1.0.1)
+      fog-core
+      fog-json
+    fog-serverlove (0.1.2)
+      fog-core
+      fog-json
+    fog-softlayer (0.4.6)
+      fog-core
+      fog-json
+    fog-storm_on_demand (0.1.1)
+      fog-core
+      fog-json
+    fog-terremark (0.1.0)
+      fog-core
+      fog-xml
+    fog-vmfusion (0.1.0)
+      fission
+      fog-core
+    fog-voxel (0.1.0)
+      fog-core
+      fog-xml
+    fog-xml (0.1.2)
+      fog-core
+      nokogiri (~> 1.5, >= 1.5.11)
+    formatador (0.2.5)
     haml (4.0.6)
       tilt
     haml-rails (0.9.0)
@@ -89,13 +225,18 @@ GEM
       haml (>= 4.0.6, < 5.0)
       html2haml (>= 1.0.1)
       railties (>= 4.0.1)
+    hashie (3.4.2)
     hitimes (1.2.2)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
       nokogiri (~> 1.6.0)
       ruby_parser (~> 3.5)
+    http-cookie (1.0.2)
+      domain_name (~> 0.5)
     i18n (0.7.0)
+    inflecto (0.0.2)
+    ipaddress (0.8.0)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -110,8 +251,15 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25.1)
+    mini_magick (4.2.7)
     mini_portile (0.6.2)
     minitest (5.7.0)
+    multi_json (1.11.1)
+    multipart-post (2.0.0)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.9.2)
+    netrc (0.10.3)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     pg (0.18.2)
@@ -150,6 +298,11 @@ GEM
     redis (3.2.1)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
+    request_store (1.2.0)
+    rest-client (1.8.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec-collection_matchers (1.1.2)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (2.99.2)
@@ -167,6 +320,8 @@ GEM
       rspec-mocks (~> 2.99.0)
     ruby_parser (3.7.0)
       sexp_processor (~> 4.1)
+    rubyzip (1.1.7)
+    safe_yaml (1.0.4)
     sass (3.4.14)
     sass-rails (5.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -174,6 +329,13 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
+    selenium-webdriver (2.47.1)
+      childprocess (~> 0.5)
+      multi_json (~> 1.0)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
+    sentry-raven (0.13.3)
+      faraday (>= 0.7.6)
     sexp_processor (4.6.0)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
@@ -190,6 +352,12 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
+    stripe (1.22.0)
+      json (~> 1.8.1)
+      rest-client (~> 1.4)
+    stripe_event (1.5.0)
+      activesupport (>= 3.1)
+      stripe (~> 1.6)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -207,10 +375,18 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.7.1)
     unicorn (4.9.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    vcr (2.9.3)
+    webmock (1.21.0)
+      addressable (>= 2.3.6)
+      crack (>= 0.3.2)
+    websocket (1.2.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -225,15 +401,22 @@ DEPENDENCIES
   bootstrap_form
   capybara
   capybara-email!
+  carrierwave!
   coffee-rails
   database_cleaner (= 1.2.0)
+  draper
+  elasticsearch-model
+  elasticsearch-rails
   fabrication
   faker
   figaro
+  fog
+  fog-aws
   haml-rails
   jquery-rails
   launchy
   letter_opener
+  mini_magick
   pg
   pry
   pry-nav
@@ -241,8 +424,14 @@ DEPENDENCIES
   rails_12factor
   rspec-rails (= 2.99)
   sass-rails
+  selenium-webdriver
+  sentry-raven
   shoulda-matchers
   sidekiq
+  stripe
+  stripe_event
   thin
   uglifier
   unicorn
+  vcr
+  webmock

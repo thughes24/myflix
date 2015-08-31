@@ -17,14 +17,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      if params[:invite_token]
-        @user1 = Invite.find_by_invite_token(params[:invite_token]).inviter
-        User.create_mutual_follow(@user,@user1)
-      end
-      AppMailer.delay.welcome_email(@user)
+    result = UserRegistration.new(@user).sign_up(params[:stripeToken], params[:invite_token])
+    if result.successful?
       redirect_to sign_in_path
     else
+      flash[:error] = result.error_message
       render :new
     end
   end

@@ -1,5 +1,5 @@
 Myflix::Application.routes.draw do
-
+  mount StripeEvent::Engine, at: '/stripe_events'
   root 'static#landing_page'
   get 'ui(/:action)', controller: 'ui'
   resources :users, only: [:new,:create,:show] do
@@ -29,4 +29,9 @@ Myflix::Application.routes.draw do
   post '/create-password',to: 'users#create_password', as: 'create_password'
 
   resources :invites, only: [:new,:create]
+
+  namespace :admin do
+    resources :videos, only: [:new,:create]
+    resources :payments, only: :index
+  end
 end

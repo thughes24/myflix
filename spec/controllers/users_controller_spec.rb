@@ -9,27 +9,27 @@ describe UsersController do
   end
 
   describe "POST create" do
-    it "creates new @user is all input is valid" do
-      post :create, user: {email: "example@gmail.com", username: "username", password: "password"}
-      expect(User.all.count).to eq(1)
-    end
-    it "renders template when input is invalid" do
-      post :create, user: {email: "email@email.com"}
-      expect(response).to render_template :new
-    end
-
-    it "sends welcome email" do
-      post :create, user: {email: "example@gmail.com", username: "username", password: "password"}
-      expect(ActionMailer::Base.deliveries).not_to be_empty
+    context "with successful sign_up" do
+      it "redirects to the sign in path" do
+        result = double(:user_reg, successful?: true)
+        UserRegistration.any_instance.should_receive(:sign_up).and_return(result)
+        post :create, user: {email: "example@gmail.com", username: "username", password: "password"}
+        expect(response).to redirect_to sign_in_path
+      end
     end
 
-    it "sends email to the new user" do
-      post :create, user: {email: "example@gmail.com", username: "username", password: "password"}
-      expect(ActionMailer::Base.deliveries.last.to).to eq(["example@gmail.com"])
-    end
-    it "sends the correct content" do
-      post :create, user: {email: "example@gmail.com", username: "username", password: "password"}
-      expect(ActionMailer::Base.deliveries.last.body).to have_content("username")
+    context "with unsuccessful sign_up" do
+      let(:result) { result = double(:user_reg, successful?: false, error_message: "some error eeek") }
+      it "renders the new template" do
+        UserRegistration.any_instance.should_receive(:sign_up).and_return(result)
+        post :create, user: Fabricate.attributes_for(:user), stripeToken: "12345"
+        expect(response).to render_template(:new)
+      end
+      it "displays error message from service object" do
+        UserRegistration.any_instance.should_receive(:sign_up).and_return(result)
+        post :create, user: Fabricate.attributes_for(:user), stripeToken: "12345"
+        expect(flash[:error]).to eq("some error eeek")
+      end
     end
   end
 

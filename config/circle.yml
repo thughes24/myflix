@@ -1,0 +1,19 @@
+machine:
+  ruby:
+    version: 2.1.6
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app mailerstest
+      - heroku pg:backups capture --app mailerstest
+      - git push git@heroku.com:mailerstest.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app mailerstest
+      - heroku maintenance:off --app mailerstest
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app fierce-tor-9420
+      - git push git@heroku.com:fierce-tor-9420.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app fierce-tor-9420
+      - heroku maintenance:off --app fierce-tor-9420
