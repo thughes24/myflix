@@ -12,6 +12,18 @@ gem 'pg'
 gem 'bootstrap_form'
 gem 'bcrypt'
 gem 'figaro'
+gem 'sidekiq'
+gem 'unicorn'
+gem 'sentry-raven'
+gem 'carrierwave', github:'carrierwaveuploader/carrierwave'
+gem 'mini_magick'
+gem 'fog'
+gem 'fog-aws'
+gem 'stripe'
+gem 'draper'
+gem 'stripe_event'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development do
   gem 'thin'
@@ -34,6 +46,9 @@ group :test do
   gem 'capybara'
   gem 'capybara-email', github: 'dockyard/capybara-email'
   gem 'launchy'
+  gem 'vcr'
+  gem 'webmock'
+  gem 'selenium-webdriver'
 end
 
 group :production do
